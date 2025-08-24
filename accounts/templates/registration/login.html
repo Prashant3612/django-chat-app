@@ -1,0 +1,16 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/accounts/login_style.css' %}">
+
+<title>Login</title>
+<div Class='login-container'>
+  <h2>Login</h2>
+<form method="post">
+  {%csrf_token%}
+  {{form.as_p}}
+  
+  
+</form>
+  <button type='submit'>Login</button>
+  <a href="{%url 'signup'%}">
+  <button >Sign up</button></a>
+  </div>

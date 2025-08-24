@@ -1,0 +1,36 @@
+{% load static %}
+
+
+<link rel="stylesheet" href="{% static 'chatRoomDashboard.css'%}">
+<form action="{% url 'logout' %}" method="post">
+  {% csrf_token %}
+  <button style="
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #45a049;
+    border-radius: 5px;
+    border: none;
+    padding: 12px 20px;
+    color: white;
+    cursor: pointer;
+  ">
+    Logout
+  </button>
+</form>
+
+<a href="{% url 'home' %}"><button>back</button></a>
+<h1>Available Users</h1>
+{%for usr in users%}
+
+<div>
+  <h2>{{ usr.username }}</h2>
+  <h3>Last Login: {{ usr.last_login }}</h3>
+
+  {% with room_name=request.user.username|add:"_"|add:usr.username %}
+  <a href="{% url 'chat_room' room_name=room_name %}">Open Chat</a>
+  {% endwith %}
+
+</div>
+{% endfor %}
+

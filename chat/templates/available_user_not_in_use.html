@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Available Users</title>
+  <link rel="stylesheet" href="{% static 'available_users.css' %}">
+</head>
+<body>
+  <div class="page-container">
+    <h1>Available Users</h1>
+
+    <div class="users-list">
+      {% for user in users %}
+        <div class="user-card">
+          <span class="username">{{ user.username }}</span>
+          {% if user.is_active %}
+            <span class="status active">● Online</span>
+          {% else %}
+            <span class="status offline">● Offline</span>
+          {% endif %}
+          <a class="chat-btn" href="{% url 'chat_room' room_name=user.username %}">
+            Chat
+          </a>
+        </div>
+      {% empty %}
+        <p>No users available.</p>
+      {% endfor %}
+    </div>
+
+    <div class="back-btn">
+      <a href="{% url 'home' %}"><button>Back</button></a>
+    </div>
+  </div>
+</body>
+</html>

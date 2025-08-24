@@ -1,0 +1,83 @@
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.user-card {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.status {
+  font-size: 14px;
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.status.active {
+  color: green;
+}
+
+.status.offline {
+  color: gray;
+}
+
+.chat-btn {
+  background: #007bff;
+  color: white;
+  padding: 8px 14px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.chat-btn:hover {
+  background: #0056b3;
+}
+
+.back-btn {
+  margin-top: 30px;
+}
+
+.back-btn button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.back-btn button:hover {
+  background: #555;
+}

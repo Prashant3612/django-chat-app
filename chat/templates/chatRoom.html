@@ -1,0 +1,146 @@
+<!-- 
+<h2>Private Chat with {{ other_user.username }}</h2>
+<div id="chat-log" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;"></div>
+
+<input id="chat-message-input" type="text" size="100">
+<input id="chat-message-submit" type="button" value="Send">
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const chatLog = document.getElementById("chat-log");
+    const chatMessageInput = document.getElementById("chat-message-input");
+    const chatMessageSubmit = document.getElementById("chat-message-submit");
+
+    const sender = "{{ request.user.username }}";
+    const otherUsername = "{{ other_user.username }}"; // pass from view
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+
+    // ✅ Single WebSocket connection for private chat
+    const chatSocket = new WebSocket(
+        `${protocol}://${window.location.host}/ws/private/${otherUsername}/`
+    );
+
+    function displayMessage(sender, message,time_stamp) {
+        const messageElem = document.createElement("div");
+        messageElem.innerHTML = `<strong>${sender}:</strong> ${message} <div style="font-size: 0.8em; color: gray; margin-top: 2px;">${time_stamp}</div>`;
+        chatLog.appendChild(messageElem);
+    }
+
+    chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+
+        if (data.type === "history") {
+            // Load saved messages
+            chatLog.innerHTML = "";
+            data.messages.forEach(msg => {
+                displayMessage(msg.sender, msg.content,msg.time_stamp);
+            });
+        } else {
+            // New incoming message
+            displayMessage(data.sender, data.message);
+        }
+
+        chatLog.scrollTop = chatLog.scrollHeight;
+    };
+
+    chatSocket.onopen = () => console.log("✅ Connected");
+    chatSocket.onclose = () => console.warn("❌ Disconnected");
+
+    chatMessageSubmit.addEventListener("click", function () {
+        const message = chatMessageInput.value.trim();
+        if (!message) return;
+
+        chatSocket.send(JSON.stringify({
+            message: message
+        }));
+
+        chatMessageInput.value = "";
+    });
+
+    chatMessageInput.addEventListener("keyup", function (e) {
+        if (e.key === "Enter") {
+            chatMessageSubmit.click();
+        }
+    });
+});
+</script>
+<a href="{% url 'home' %}"><button>Back</button></a>
+
+ -->
+
+<h2>Chat with {{ other_user.username }}</h2>
+
+
+<div id="chat-log" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;"></div>
+
+<input id="chat-message-input" type="text" size="100">
+<input id="chat-message-submit" type="button" value="Send">
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const chatLog = document.getElementById("chat-log");
+    const chatMessageInput = document.getElementById("chat-message-input");
+    const chatMessageSubmit = document.getElementById("chat-message-submit");
+
+    const sender = "{{ request.user.username }}";
+    const otherUsername = "{{ other_user.username }}"; // passed from view
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+
+    // ✅ WebSocket connection for private chat
+    const chatSocket = new WebSocket(
+        `${protocol}://${window.location.host}/ws/private/${otherUsername}/`
+    );
+
+    // Function to display messages in chat
+    function displayMessage(sender, message, time_stamp) {
+        const messageElem = document.createElement("div");
+        messageElem.innerHTML = `
+            <strong>${sender}:</strong> ${message}
+            <div style="font-size: 0.8em; color: gray; margin-top: 2px;">
+                ${time_stamp || ""}
+            </div>`;
+        chatLog.appendChild(messageElem);
+    }
+
+    chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+
+        if (data.type === "history") {
+            // Load saved messages
+            chatLog.innerHTML = "";
+            data.messages.forEach(msg => {
+                displayMessage(msg.sender, msg.content, msg.time_stamp);
+            });
+        } else {
+            // New incoming message
+            displayMessage(data.sender, data.message, data.time_stamp);
+        }
+
+        chatLog.scrollTop = chatLog.scrollHeight;
+    };
+
+    chatSocket.onopen = () => console.log("✅ Connected");
+    chatSocket.onclose = () => console.warn("❌ Disconnected");
+
+    
+    chatMessageSubmit.addEventListener("click", function () {
+        const message = chatMessageInput.value.trim();
+        if (!message) return;
+
+        chatSocket.send(JSON.stringify({
+            message: message
+        }));
+
+        chatMessageInput.value = "";
+    });
+
+    
+    chatMessageInput.addEventListener("keyup", function (e) {
+        if (e.key === "Enter") {
+            chatMessageSubmit.click();
+        }
+    });
+});
+</script>
+
+<a href="{% url 'home' %}"><button>Back</button></a>

@@ -1,0 +1,31 @@
+{% load static %}
+<form action="{% url 'logout' %}" method="post">
+  {% csrf_token %}
+  <button style="
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #45a049;
+    border-radius: 5px;
+    border: none;
+    padding: 12px 20px;
+    color: white; 
+    cursor: pointer;">
+    Logout
+  </button>
+</form>
+<title>Recent Chats</title>
+<link rel="stylesheet" href="{% static 'welcome.css' %}">
+<h1>Welcome {{request.user}}</h1>
+<h2>Recent Chats</h2>
+<a href="{% url 'show_users' %}"><button class='create_button'>Available Users +</button></a>
+ {% for chat in chats %}
+   <div class="chat-card">
+     <p><strong>{{ chat.other_user.username }}</strong></p>
+     <p class="last-message">{{ chat.message.message|truncatewords:6 }}</p>
+     <p class="time">{{ chat.message.time_stamp|date:"M d, H:i" }}</p>
+     <a href="{% url 'chat_room' room_name=chat.room_name %}">Open Chat</a>
+   </div>
+ {% empty %}
+   <p>No chats yet.</p>
+ {% endfor %}

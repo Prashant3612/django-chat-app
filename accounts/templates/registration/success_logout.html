@@ -1,0 +1,26 @@
+<div style="
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #f9f9f9;
+">
+  <h2>You have been logged out.</h2>
+  <a href="{% url 'login' %}">
+      <button style="
+          background-color: #45a049;
+          border-radius: 10px;
+          border: none;
+          padding: 15px 30px;
+          color: white;
+          cursor: pointer;
+          font-size: 1em;
+      " 
+      onmouseover="this.style.backgroundColor='#2196F3'" 
+      onmouseout="this.style.backgroundColor='#45a049'">
+          Login again
+      </button>
+  </a>
+</div>

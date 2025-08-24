@@ -1,0 +1,88 @@
+/* === recent_chats.css === */
+
+body {
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f5f6f7;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-list {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.chat-list h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.chat-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    cursor: pointer;
+}
+
+.chat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.chat-card p {
+    margin: 4px 0;
+    color: #555;
+}
+
+.chat-card strong {
+    font-size: 16px;
+    color: #111;
+}
+
+.last-message {
+    font-size: 14px;
+    color: #777;
+}
+
+.time {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+}
+
+.chat-card a {
+    margin-top: 8px;
+    align-self: flex-end;
+    text-decoration: none;
+    font-size: 14px;
+    color: #007bff;
+    transition: color 0.2s;
+}
+
+.chat-card a:hover {
+    color: #0056b3;
+}
+
+.create_button{
+    border-radius:5px;
+    color: #fff;
+    background-color: #3982d0;
+    margin:0px 40px 40px 5px;
+    border:1px;
+    padding:20px;
+}
+.create_button:hover{
+    color: white;
+    background-color: #0056b3;
+    transition: color 0.4s;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}

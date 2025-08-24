@@ -26,9 +26,11 @@ SECRET_KEY = 'django-insecure-4ju2n@$f9d0c=h)_g0lbb%k9&@rf(xa$d$g$&5ri$uf)*gev^4
 DEBUG = True
 
 ALLOWED_HOSTS = os.environ["REPLIT_DOMAINS"].split(',')
-CSRF_TRUSTED_ORIGINS = [
-    "https://" + domain for domain in os.environ["REPLIT_DOMAINS"].split(',')
-]
+CSRF_TRUSTED_ORIGINS = ["https://*.replit.dev", "https://*.replit.app","https://81002a70-d141-4a21-9e0a-00a8638c21bf-00-3hn8m1tcz32s.sisko.replit.dev:8000"]
+
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://81002a70-d141-4a21-9e0a-00a8638c21bf-00-3hn8m1tcz32s.sisko.replit.dev"
+# ]
 
 # Application definition
 
@@ -39,7 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    'chat',
+    'channels',
 ]
+
+####LOGIN/ LOGOUT
+
+LOGIN_REDIRECT_URL = 'home/'
+# LOGOUT_REDIRECT_URL = 'accounts/templates/registration/success_logout.html' 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +66,8 @@ if ("REPLIT_DEPLOYMENT" in os.environ):
     MIDDLEWARE.append('django.middleware.clickjacking.XFrameOptionsMiddleware')
 
 ROOT_URLCONF = 'django_project.urls'
+AUTH_USER_MODEL = 'accounts.User'
+
 
 TEMPLATES = [
     {
@@ -73,7 +85,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_project.wsgi.application'
+# WSGI_APPLICATION = 'django_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -127,3 +139,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+ASGI_APPLICATION = 'django_project.asgi.application'
+
+CHANNEL_LAYERS = {
+    # 'default': {
+    #     'BACKEND': 'channels_redis.core.RedisChannelLayer',
+    #     'CONFIG': {
+    #         "hosts": [('127.0.0.1', 6379)],
+
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+        
+    }
+}
