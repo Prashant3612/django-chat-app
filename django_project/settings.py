@@ -26,7 +26,16 @@ SECRET_KEY = 'django-insecure-4ju2n@$f9d0c=h)_g0lbb%k9&@rf(xa$d$g$&5ri$uf)*gev^4
 DEBUG = True
 
 ALLOWED_HOSTS = os.environ["REPLIT_DOMAINS"].split(',')
-CSRF_TRUSTED_ORIGINS = ["https://*.replit.dev", "https://*.replit.app","https://81002a70-d141-4a21-9e0a-00a8638c21bf-00-3hn8m1tcz32s.sisko.replit.dev:8000"]
+# CSRF_TRUSTED_ORIGINS = ["https://*.replit.dev", "https://*.replit.app","https://81002a70-d141-4a21-9e0a-00a8638c21bf-00-3hn8m1tcz32s.sisko.replit.dev:8000"]
+
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{os.environ.get('RENDER_EXTERNAL_HOSTNAME', '')}"
+]
+# Optional: Allow multiple origins if needed
+extra_csrf = os.environ.get("CSRF_TRUSTED_ORIGINS")
+if extra_csrf:
+    CSRF_TRUSTED_ORIGINS += extra_csrf.split(",")
+
 
 # CSRF_TRUSTED_ORIGINS = [
 #     "https://81002a70-d141-4a21-9e0a-00a8638c21bf-00-3hn8m1tcz32s.sisko.replit.dev"
