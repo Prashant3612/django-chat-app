@@ -41,9 +41,11 @@ extra_csrf = os.environ.get("CSRF_TRUSTED_ORIGINS")
 if extra_csrf:
     CSRF_TRUSTED_ORIGINS += extra_csrf.split(",")
 
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
 
 # CSRF_TRUSTED_ORIGINS = [
 #     "https://81002a70-d141-4a21-9e0a-00a8638c21bf-00-3hn8m1tcz32s.sisko.replit.dev"
